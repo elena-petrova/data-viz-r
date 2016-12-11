@@ -24,11 +24,16 @@ mean(ebay_cartier$price)
 # distribution of prices
 ggplot(ebay_cartier, 
        aes(x = price)) + 
-  geom_histogram(binwidth = 65, 
+  geom_histogram(binwidth = 85, 
                  fill = "#008B8B", 
                  col = "white") +
   geom_vline(aes(xintercept = median(ebay_cartier$price)), 
-             col = "red")
+             col = "yellow",
+             size = 1.5) +
+  labs(title = "Distribution of final prices",
+       x = "Final prices",
+       y = "Frequency") +
+  text_theme
 
 #############################################
 # Data analysis: Fake vs Original Cartier set
@@ -49,10 +54,10 @@ ggplot(ebay_cartier,
        aes(x = factor(1), 
            fill = auction_type_f)) +
   geom_bar(width = 3) +
-  ggtitle("Auctions' distribution per type") +
+  ggtitle("Auctions' bid distribution per type") +
   coord_polar(theta = "y") +
-  labs(fill="Type of auction") +
-  scale_fill_brewer(palette = "Blues") +
+  labs(fill= "Type of auction") +
+  scale_fill_brewer(palette = "PRGn") +
   xlab(NULL) + ylab(NULL) +
   text_theme 
 
@@ -99,8 +104,8 @@ original_bids <- original %>%
 bar_auction_type <- geom_bar(aes(fill = auction_type_f), 
                              stat = "count")
 
-fake_palette <- scale_fill_brewer(palette = "Set2") 
-original_palette <- scale_fill_brewer(palette = "Set3") 
+fake_palette <- scale_fill_brewer(palette = "Reds") 
+original_palette <- scale_fill_brewer(palette = "Blues") 
 
 # distribution of auction types for (likely) fake items
 ggplot(fake_bids, 
@@ -155,7 +160,11 @@ ggplot(original_bids,
 # distribution of openbid per "fake" auction
 ggplot(fake, 
        aes(x = auction_type_f, y = openbid)) + 
-  boxplot_auction_type +
+  geom_violin(aes(fill = auction_type_f), 
+              col = "white", 
+              scale = "area",
+              alpha = 0.5) +
+  geom_point(col = "aquamarine", alpha = 0.2) +
   fake_palette + 
   labs(title = "Fake: distribution of starting prices",
        x = "Type of an eBay auction", 
@@ -167,14 +176,18 @@ ggplot(fake,
 # distribution of openbid per "original" auction
 ggplot(original, 
        aes(x = auction_type_f, y = openbid)) + 
-  boxplot_auction_type +
+  geom_violin(aes(fill = auction_type_f), 
+              col = "white", 
+              scale = "area",
+              alpha = 0.5) +
+  geom_point(col = "aquamarine", alpha = 0.2) +
   original_palette + 
   labs(title = "Original: distribution of starting prices",
        x = "Type of an eBay auction", 
        y = "Starting price per auction") +
   guides(fill = F) +
   text_theme + 
-  coord_cartesian(ylim = c(0, 1000)) # outliers masked
+  coord_cartesian(ylim = c(0, 1500)) # few outliers masked
 
 # relationship between final price per auction and auction type
 ggplot(auctions, 
@@ -184,7 +197,7 @@ ggplot(auctions,
        x = "Type of an auction", 
        y = "Final price") +
   guides(fill = F) +
-  scale_fill_brewer(palette = "Pastel1") + 
+  scale_fill_brewer(palette = "PuBuGn") + 
   text_theme
 
 # add new column to auctions: seller_gain 
@@ -194,9 +207,8 @@ auctions <- auctions %>%
 # relationship between seller gain and final price
 ggplot(auctions, 
        aes(x = seller_gain, y = price)) + 
-  geom_jitter(alpha = 0.2, col = "lightgrey") +
-  geom_smooth(method = "lm",
-              se = F, 
+  geom_jitter(alpha = 0.3, col = "lightgrey") +
+  geom_smooth(se = F, 
               aes(col = auction_type_f)) +
   labs(title = "Ratio gain/price per auction", 
        x = "Total seller gain", 
