@@ -15,4 +15,5 @@ price      - the price that the item was sold for (equivalent to the second high
 
 Data source: www.modelingonlineauctions.com/datasets 
 
-Full project with recommendation for buyers/seller soulc be found at: www.datageekette.com
+Full project with recommendation for buyers/seller soulc be found at: 
+www.kaggle.com/elenapetrova/d/onlineauctions/online-auctions-dataset/data-manipulation-visualization-cartier-auctions/
