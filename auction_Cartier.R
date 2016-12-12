@@ -27,7 +27,7 @@ ggplot(ebay_cartier,
   geom_histogram(binwidth = 85, 
                  fill = "#008B8B", 
                  col = "white") +
-  geom_vline(aes(xintercept = median(ebay_cartier$price)), 
+  geom_vline(aes(xintercept = mean(ebay_cartier$price)), 
              col = "yellow",
              size = 1.5) +
   labs(title = "Distribution of final prices",
@@ -70,13 +70,13 @@ auctions <- ebay_cartier %>%
 
 # auctions with a bid > median
 original <- auctions %>% 
-  filter(bid > 620)
+  filter(bid > median(auctions$price))
 
 # bidders who didn't bid more than the median for an item 
 # which was not sold at more than the median price
 fake <- auctions %>%
   anti_join(original, by = "auctionid") %>%
-  filter(price <= 620)
+  filter(price <= median(auctions$price))
 
 # check if divided well
 n_distinct(original$auctionid); n_distinct(fake$auctionid)
@@ -157,13 +157,15 @@ ggplot(original_bids,
   guides(fill = F) +
   text_theme
 
+violin_auction_type <- geom_violin(aes(fill = auction_type_f), 
+                                   col = "white",  
+                                   scale = "area", 
+                                   alpha = 0.5) 
+
 # distribution of openbid per "fake" auction
 ggplot(fake, 
        aes(x = auction_type_f, y = openbid)) + 
-  geom_violin(aes(fill = auction_type_f), 
-              col = "white", 
-              scale = "area",
-              alpha = 0.5) +
+  violin_auction_type +
   geom_point(col = "aquamarine", alpha = 0.2) +
   fake_palette + 
   labs(title = "Fake: distribution of starting prices",
@@ -176,10 +178,7 @@ ggplot(fake,
 # distribution of openbid per "original" auction
 ggplot(original, 
        aes(x = auction_type_f, y = openbid)) + 
-  geom_violin(aes(fill = auction_type_f), 
-              col = "white", 
-              scale = "area",
-              alpha = 0.5) +
+  violin_auction_type +
   geom_point(col = "aquamarine", alpha = 0.2) +
   original_palette + 
   labs(title = "Original: distribution of starting prices",
@@ -215,6 +214,6 @@ ggplot(auctions,
        y = "Final price",
        colour = "Auction type") +
   text_theme +
-  ylim(0, 4000)
+  coord_cartesian(ylim= c(0, 4000))
 
 # R style guide on http://adv-r.had.co.nz/Style.html
