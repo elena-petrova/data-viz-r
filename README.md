@@ -1,6 +1,5 @@
 # eBay online auctions
 # Cartier watches
-R script
 
 Data Manipulation & Visualization
 
