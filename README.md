@@ -1,7 +1,8 @@
-# eBay_auctions_Cartier
+# eBay online auctions
+# Cartier watches
 R script
 
-Data Manipulation & Visualization: eBay small data set
+Data Manipulation & Visualization
 
 Dataset attributes:
 auctionid  - unique identifier of an auction
