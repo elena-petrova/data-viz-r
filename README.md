@@ -13,7 +13,7 @@ openbid    - the opening bid (set by the seller)
 price      - the price that the item was sold for (equivalent to the second highest bid + an increment) 
 
 
-Data source: www.modelingonlineauctions.com/datasets 
+[Data source:] (www.modelingonlineauctions.com/datasets)
 
 Full project with recommendation for buyers/seller be found at: 
 www.kaggle.com/elenapetrova/d/onlineauctions/online-auctions-dataset/data-manipulation-visualization-cartier-auctions/
