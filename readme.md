@@ -12,7 +12,7 @@ Description:
 [Data source](www.modelingonlineauctions.com/datasets)
 
 
-*You can find a whole worflow of a project with recommendation to potential sellers/buyers at [Kaggle](www.kaggle.com/elenapetrova/d/onlineauctions/online-auctions-dataset/data-manipulation-visualization-cartier-auctions/).*
+*You can find a whole worflow of a project with a list of recommendations for potential sellers/buyers at [Kaggle](www.kaggle.com/elenapetrova/d/onlineauctions/online-auctions-dataset/data-manipulation-visualization-cartier-auctions/).*
 
 Thanks for reading,
 
